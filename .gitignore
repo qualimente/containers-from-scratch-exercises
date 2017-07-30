@@ -1,0 +1,12 @@
+# Ignore OS X
+.DS_Store
+~*
+
+# Ignore IntelliJ IDEA
+*.iml
+*.ipr
+.idea
+
+# Vagrant template
+.vagrant/
+
