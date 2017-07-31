@@ -3,7 +3,6 @@ sudo su
 cd
 
 # create device and btrfs
-modprobe loop
 mkdir -p /var/btrfs
 dd if=/dev/zero of=/var/btrfs/loop0 bs=1k count=512000
 losetup /dev/loop0 /var/btrfs/loop0
@@ -38,9 +37,9 @@ btrfs subvol list images
 
 # use docker to download an image and create a filesystem we can use later
 # alternatively, use docker save!
-CID=$(docker run -d alpine:3.6 true)
+CID=$(docker run -d alpine true)
 echo $CID
-docker export $CID | tar -C images/alpine-3.6/ -xf-
+docker export $CID | tar -C images/alpine/ -xf-
 
 # inspect the image filesystem
 ls -la images/alpine-3.6
@@ -55,4 +54,13 @@ exec bash
 
 # show some things: process list, hostname
 ps # shows processes, note pids are not namespaced.  because /proc is shared
+
+# mount new proc filesystem
+mount -t proc none /proc
+
+# shows only container's processes
+ps
+
+# cleanup old mount
+umount /proc/
 
