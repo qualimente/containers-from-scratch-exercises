@@ -42,7 +42,8 @@ echo $CID
 docker export $CID | tar -C images/alpine/ -xf-
 
 # inspect the image filesystem
-ls -la images/alpine-3.6
+ls -la images/alpine
+echo "always be demo'ing $(date)" > images/alpine/README
 
 # create btrfs snapshot of alpine image and store in containers directory as 'tupperware' - our container name!
 btrfs subvol snapshot images/alpine-3.6/ containers/tupperware
