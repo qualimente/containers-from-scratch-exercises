@@ -45,8 +45,10 @@ docker export $CID | tar -C images/alpine/ -xf-
 ls -la images/alpine
 echo "always be demo'ing $(date)" > images/alpine/README
 
+# start containerizing!
+
 # create btrfs snapshot of alpine image and store in containers directory as 'tupperware' - our container name!
-btrfs subvol snapshot images/alpine-3.6/ containers/tupperware
+btrfs subvol snapshot images/alpine/ containers/tupperware
 
 # beginning of container
 unshare --mount --uts --ipc --net --pid --fork bash
@@ -62,6 +64,26 @@ mount -t proc none /proc
 # shows only container's processes
 ps
 
-# cleanup old mount
+# remove fresh proc
 umount /proc/
+
+# isolate filesystem
+mkdir /mnt/demo/containers/tupperware/oldroot
+cd /
+mount --bind /mnt/demo/containers/tupperware/ /mnt/demo/containers/tupperware/
+mount --move /mnt/demo/containers/tupperware/ /mnt/demo/
+cd /mnt/demo
+pivot_root . oldroot/
+
+# clean up process namespace again
+mount -t proc none /proc
+
+# show mounts, including a bunch of stuff from host
+mount
+
+# unmount host's filesystem and associated mounts
+umount -l /oldroot/
+
+# show mounts
+mount
 
