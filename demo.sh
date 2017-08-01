@@ -87,3 +87,45 @@ umount -l /oldroot/
 # show mounts
 mount
 
+# spawn new shell on *host*
+sudo su
+cd
+CPID=$(pidof unshare)
+echo $CPID
+ip link add name host${CPID} type veth peer name cont${CPID}
+ip link set cont${CPID} netns ${CPID}
+
+# configure docker bridge
+ip link set host${CPID} master docker0 up
+
+# in *container*
+# show interfaces are visible but do not have addresses, no bytes sent
+ifconfig -a
+ping www.google.com #nothing
+
+# start up interfaces
+export CPID=NNNN
+ip link set lo up
+ip link set cont${CPID} name eth0 up
+
+ip addr add 172.17.42.42/16 dev eth0
+ifconfig -a
+
+ip route add default via 172.17.0.1
+
+# demo network!
+ping 8.8.8.8
+
+# final step: switch to the shell inside container
+exec chroot / sh
+
+
+
+# reference #
+
+# network routes
+# $ ip route
+# default via 10.0.2.2 dev enp0s3
+# 10.0.2.0/24 dev enp0s3  proto kernel  scope link  src 10.0.2.15
+# 172.17.0.0/16 dev docker0  proto kernel  scope link  src 172.17.0.1 linkdown
+# 192.168.0.0/24 dev enp0s8  proto kernel  scope link  src 192.168.0.42
