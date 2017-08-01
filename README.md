@@ -6,10 +6,11 @@ This repo contains the exercises and demo code for a Containers from Scratch pre
 
 To follow along with this demo:
 
-1. Install Vagrant w/ Virtualbox support; tested w/ Vagrant 1.8.5
-2. run `bootstrap.sh` # will install an Ubuntu 16.04.2 Vagrant box
-3. run `vagrant up`
-4. follow steps in `demo.sh` #almost, but not quite runnable
+1. Clone this repo
+2. Install Vagrant w/ Virtualbox support; tested w/ Vagrant 1.8.5
+3. run `bootstrap.sh` # will install an Ubuntu 16.04.2 Vagrant box
+4. run `vagrant up`
+5. follow steps in `demo.sh` #almost, but not quite runnable
 
 Note: The Vagrant VM provider is Virtualbox. If you need to use a different provider you can:
 
