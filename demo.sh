@@ -70,8 +70,8 @@ unshare \
   --net \
   --pid \
   --fork bash
-hostname tupperware
 exec bash
+#hostname tupperware # will actually change hostname; because bash is from parent?
 
 # show some things: process list, hostname
 ps # shows processes, note pids are not namespaced.  because /proc is shared
@@ -154,8 +154,7 @@ echo "Achievement Unlocked: You have created and integrated an isolated network 
 
 # final step: switch to the shell inside container
 exec chroot / sh
-
-
+hostname tupperware
 
 # reference #
 
