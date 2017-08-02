@@ -31,7 +31,7 @@ mount --make-rprivate /
 # make a directory to hold images and containers
 mkdir -p images containers
 
-echo "Achievement Unlocked! You have a place to store images and containers."
+echo "Achievement Unlocked: You have a place to store images and containers!"
 
 # create a sub volume to hold an alpine image
 btrfs subvol create images/alpine
@@ -47,7 +47,10 @@ docker export $CID | tar -C images/alpine/ -xf-
 
 # inspect the image filesystem
 ls -la images/alpine
-echo "always be demo'ing $(date)" > images/alpine/README
+echo "Always be demoing! $(date)" > images/alpine/README
+cat images/alpine/README
+
+echo "Achievement Unlocked: You have an image to create a container from!"
 
 # start containerizing!
 
