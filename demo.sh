@@ -135,7 +135,7 @@ ip link set host${CPID} master docker0 up
 # in *container*
 # show interfaces are visible but do not have addresses, no bytes sent
 ifconfig -a
-ping www.google.com #nothing
+ping 8.8.8.8
 
 # start up interfaces
 export CPID=NNNN
@@ -149,6 +149,8 @@ ip route add default via 172.17.0.1
 
 # demo network!
 ping 8.8.8.8
+
+echo "Achievement Unlocked: You have created and integrated an isolated network adapter in your container!"
 
 # final step: switch to the shell inside container
 exec chroot / sh
