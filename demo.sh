@@ -111,9 +111,19 @@ umount -l /oldroot/
 # show mounts
 mount
 
+echo "This is the container's filesystem! $(date)" >> README
+cat README
+
 # spawn new shell on *host*
 sudo su
 cd
+
+cat /mnt/demo/images/alpine/README
+cat /mnt/demo/containers/tupperware/README
+
+echo "Achievement Unlocked: You have pivoted to an isolated filesystem created from an image snapshot!"
+
+# Create and integrate network
 CPID=$(pidof unshare)
 echo $CPID
 ip link add name host${CPID} type veth peer name cont${CPID}
