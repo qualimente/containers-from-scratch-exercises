@@ -2,7 +2,7 @@
 sudo su
 cd
 
-# create device and btrfs
+# create copy-on-write filesystem capable of storing layers using loopback device and btrfs
 mkdir -p /var/btrfs
 dd if=/dev/zero of=/var/btrfs/loop0 bs=1k count=512000
 losetup /dev/loop0 /var/btrfs/loop0
@@ -20,14 +20,18 @@ df -h /mnt/demo
 ls /mnt/demo
 
 # foundation of isolation is filesystem
-# inside fresh btrfs volume: /btrfs
+# inside fresh btrfs volume: /mnt/demo
 cd /mnt/demo
 
-# make filesystem private so container fs does not bleed into host
+# start with a clean state. Set all mounts to private
+# disable propagation of mounts from /, recursively
+# https://www.ibm.com/developerworks/library/l-mount-namespaces/index.html
 mount --make-rprivate /
 
 # make a directory to hold images and containers
 mkdir -p images containers
+
+echo "Achievement Unlocked! You have a place to store images and containers."
 
 # create a sub volume to hold an alpine image
 btrfs subvol create images/alpine
