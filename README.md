@@ -19,8 +19,16 @@ Note: The Vagrant VM provider is Virtualbox. If you need to use a different prov
 
 # Inspiration #
 
-This presentation is inspired by the truly excellent presentations done by:
+This presentation is inspired by these truly excellent presentations:
 
 * Jerome Petazzoni at [DockerCon EU 2015](https://www.youtube.com/watch?v=sK5i-N34im8)
     * these exercises are a literal port of the closing demo from Jerome's talk
-* Liz Rice's [Containers From Scratch](https://github.com/lizrice/containers-from-scratch)
+* Liz Rice's [Containers From Scratch (golang)](https://github.com/lizrice/containers-from-scratch)
+
+# Resources #
+
+* [Ubuntu Cloud Images](https://cloud-images.ubuntu.com/xenial/)
+* [Creating and using loopback devices](https://www.computerhope.com/unix/losetup.htm)
+* [Create a btrfs volume](https://www.howtoforge.com/a-beginners-guide-to-btrfs#-creating-btrfs-file-systems-raid-raid)
+* [Applying mount namespaces](https://www.ibm.com/developerworks/library/l-mount-namespaces/index.html)
+* [IP Route](http://linux-ip.net/html/tools-ip-route.html)
