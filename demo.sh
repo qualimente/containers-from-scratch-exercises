@@ -57,8 +57,19 @@ echo "Achievement Unlocked: You have an image to create a container from!"
 # create btrfs snapshot of alpine image and store in containers directory as 'tupperware' - our container name!
 btrfs subvol snapshot images/alpine/ containers/tupperware
 
-# beginning of container
-unshare --mount --uts --ipc --net --pid --fork bash
+# Unshare the indicated namespaces from the parent process and then execute the specified program.
+# --mount Mounting and unmounting filesystems will not affect the rest of the system
+# --uts   Setting hostname or domainname will not affect the rest of the system.
+# --ipc   Process will have an independent namespace for System V message queues, semaphore sets and shared memory segments.
+# --net   Process will have independent IPv4 and IPv6 stacks, IP routing tables, firewall rules, the /proc/net and /sys/class/net directory trees, sockets, etc.
+# --pid   Children will have a distinct set of PID to process mappings from their parent.
+unshare \
+  --mount \
+  --uts \
+  --ipc \
+  --net \
+  --pid \
+  --fork bash
 hostname tupperware
 exec bash
 
@@ -68,8 +79,14 @@ ps # shows processes, note pids are not namespaced.  because /proc is shared
 # mount new proc filesystem
 mount -t proc none /proc
 
-# shows only container's processes
+# shows only container's processes with pids mapped from container's pid namespace
 ps
+
+# show network isolation
+ifconfig -a
+ping 8.8.8.8
+
+echo "Achievement Unlocked: You have created a container with mount, uts, ipc, net, and pid namespaces enabled!"
 
 # remove fresh proc
 umount /proc/
