@@ -92,9 +92,11 @@ echo "Achievement Unlocked: You have created a container with mount, uts, ipc, n
 umount /proc/
 
 # isolate filesystem
-mkdir /mnt/demo/containers/tupperware/oldroot
 cd /
-mount --bind /mnt/demo/containers/tupperware/ /mnt/demo/containers/tupperware/
+mkdir /mnt/demo/containers/tupperware/oldroot
+mount --bind \
+  /mnt/demo/containers/tupperware/ \
+  /mnt/demo/containers/tupperware/
 mount --move /mnt/demo/containers/tupperware/ /mnt/demo/
 cd /mnt/demo
 # pivot_root <new_root> <put_old> moves the root file system of the current process to the directory put_old and makes new_root the new root file system.
@@ -139,7 +141,7 @@ ifconfig -a
 ping 8.8.8.8
 
 # start up interfaces
-export CPID=NNNN
+export CPID=NNNN # set to value of the unshared process, ${CPID} from the host shell
 ip link set lo up
 ip link set cont${CPID} name eth0 up
 
