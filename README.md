@@ -1,6 +1,6 @@
 # Containers from Scratch #
 
-This repo contains the exercises and demo code for a Containers from Scratch presentation.
+This repo contains the exercises and demo code for a Containers from Scratch presentation ([slides](https://docs.google.com/presentation/d/1i0SbJda_a4q5gVr4h496Yj2YzB0u4X3o960rxjnTELA/pub?start=false&loop=false&delayms=3000)).
 
 # Getting Started #
 
@@ -27,6 +27,7 @@ This presentation is inspired by these truly excellent presentations:
 
 # Resources #
 
+* [Containers from Scratch Slides](https://docs.google.com/presentation/d/1i0SbJda_a4q5gVr4h496Yj2YzB0u4X3o960rxjnTELA/pub?start=false&loop=false&delayms=3000)
 * [Ubuntu Cloud Images](https://cloud-images.ubuntu.com/xenial/)
 * [Creating and using loopback devices](https://www.computerhope.com/unix/losetup.htm)
 * [Create a btrfs volume](https://www.howtoforge.com/a-beginners-guide-to-btrfs#-creating-btrfs-file-systems-raid-raid)
