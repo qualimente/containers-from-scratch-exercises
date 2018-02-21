@@ -118,7 +118,7 @@ ls
 # pivot_root <new_root> <put_old> moves the root file system of the current process to the directory put_old and makes new_root the new root file system.
 pivot_root . oldroot/
 
-# clean up process namespace again
+# clean up proc filesystem again
 mount -t proc none /proc
 
 # show mounts, including a bunch of stuff from host
