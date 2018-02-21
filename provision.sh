@@ -20,4 +20,4 @@ sudo add-apt-repository \
 sudo apt-get update
 
 # Install packages relevant to demo
-sudo apt-get install -y btrfs-tools docker-ce
+sudo apt-get install -y btrfs-tools docker-ce tree
