@@ -8,6 +8,12 @@ function achievement() {
   echo '============================='
 }
 
+# show cgroups are already in-use
+tree /sys/fs/cgroup/pids
+cat /sys/fs/cgroup/pids/user.slice/pids.current
+cat /sys/fs/cgroup/pids/user.slice/user-1000.slice/pids.current
+cat /sys/fs/cgroup/pids/user.slice/user-1000.slice/tasks
+
 # create copy-on-write filesystem capable of storing layers using loopback device and btrfs
 mkdir -p /var/btrfs
 dd if=/dev/zero of=/var/btrfs/loop0 bs=1k count=512000
