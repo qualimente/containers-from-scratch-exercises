@@ -2,6 +2,12 @@
 sudo su
 cd
 
+function achievement() {
+  echo '=== Achievement Unlocked! ==='
+  echo "$1"
+  echo '============================='
+}
+
 # create copy-on-write filesystem capable of storing layers using loopback device and btrfs
 mkdir -p /var/btrfs
 dd if=/dev/zero of=/var/btrfs/loop0 bs=1k count=512000
@@ -31,7 +37,7 @@ mount --make-rprivate /
 # make a directory to hold images and containers
 mkdir -p images containers
 
-echo "Achievement Unlocked: You have a place to store images and containers!"
+achievement "You have a place to store images and containers!"
 
 # create a sub volume to hold an alpine image
 btrfs subvol create images/alpine
@@ -50,7 +56,7 @@ ls -la images/alpine
 echo "Always be demoing! $(date)" > images/alpine/README
 cat images/alpine/README
 
-echo "Achievement Unlocked: You have an image to create a container from!"
+achievement "You have an image to create a container from!"
 
 # start containerizing!
 
@@ -73,6 +79,12 @@ unshare \
 exec bash
 #hostname tupperware # will actually change hostname; because bash is from parent?
 
+function achievement() {
+  echo '=== Achievement Unlocked! ==='
+  echo "$1"
+  echo '============================='
+}
+
 # show some things: process list, hostname
 ps # shows processes, note pids are not namespaced.  because /proc is shared
 
@@ -86,7 +98,7 @@ ps
 ifconfig -a
 ping 8.8.8.8
 
-echo "Achievement Unlocked: You have created a container with mount, uts, ipc, net, and pid namespaces enabled!"
+achievement "You have created a container with mount, uts, ipc, net, and pid namespaces enabled!"
 
 # remove fresh proc
 umount /proc/
@@ -94,11 +106,15 @@ umount /proc/
 # isolate filesystem
 cd /
 mkdir /mnt/demo/containers/tupperware/oldroot
+# create a mountpoint from the tupperware container directory
 mount --bind \
   /mnt/demo/containers/tupperware/ \
   /mnt/demo/containers/tupperware/
+# move tupperware container mount to /mnt/demo; making container fs contents accessible under /mnt/demo
 mount --move /mnt/demo/containers/tupperware/ /mnt/demo/
 cd /mnt/demo
+ls
+
 # pivot_root <new_root> <put_old> moves the root file system of the current process to the directory put_old and makes new_root the new root file system.
 pivot_root . oldroot/
 
@@ -121,10 +137,16 @@ cat README
 sudo su
 cd
 
+function achievement() {
+  echo '=== Achievement Unlocked! ==='
+  echo "$1"
+  echo '============================='
+}
+
 cat /mnt/demo/images/alpine/README
 cat /mnt/demo/containers/tupperware/README
 
-echo "Achievement Unlocked: You have pivoted to an isolated filesystem created from an image snapshot!"
+achievement "You have pivoted to an isolated filesystem created from an image snapshot!"
 
 # Create and integrate network
 CPID=$(pidof unshare)
@@ -153,7 +175,7 @@ ip route add default via 172.17.0.1
 # demo network!
 ping 8.8.8.8
 
-echo "Achievement Unlocked: You have created and integrated an isolated network adapter in your container!"
+achievement "You have created and integrated an isolated network adapter in your container!"
 
 # final step: switch to the shell inside container
 exec chroot / sh
